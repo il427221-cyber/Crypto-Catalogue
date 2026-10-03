@@ -4,33 +4,33 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import ru.netology.cryptocatalogue.dto.CryptoCoin
+import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 
 @Composable
 fun CryptoList(
-    coins: List<CryptoCoin>,
+    viewModel: CryptoViewModel,
     onCoinClick: (CryptoCoin) -> Unit) {
-    LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(coins) {coin ->
-            CryptoCard(coin = coin)
+
+    val state by viewModel.state.collectAsState()
+    val list by viewModel.coins.collectAsState()
+
+    when {
+        state.loading -> CircularProgressIndicator()
+        state.error -> Text("Error")
+        else -> LazyColumn(
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(list) {coin ->
+                CryptoCardSmall(coin = coin)
+            }
         }
     }
-}
-
-@Preview
-@Composable
-fun CryptoListPreview() {
-    CryptoList(
-        coins = listOf(
-            CryptoCoin(symbol = "BTC", name = "Bitcoin", price_usd = "70000.00", percent_change_24h = "+0.24"),
-            CryptoCoin(symbol = "ETH", name = "Ethereum", price_usd = "3500.00", percent_change_24h = "-1.15"),
-            CryptoCoin(symbol = "SOL", name = "Solana", price_usd = "150.00", percent_change_24h = "+5.40")
-        ),
-    ) {}
 }

@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import ru.netology.cryptocatalogue.dto.CryptoCoin
 
 @Composable
-fun CryptoCard(coin: CryptoCoin) {
+fun CryptoCardSmall(coin: CryptoCoin) {
     Card(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -37,7 +37,7 @@ fun CryptoCard(coin: CryptoCoin) {
 @Preview
 @Composable
 fun CryptoCardPreview (){
-    CryptoCard(coin = CryptoCoin(
+    CryptoCardSmall(coin = CryptoCoin(
         symbol = "BTC",
         name = "Bitcoin",
         price_usd = "70.00",
