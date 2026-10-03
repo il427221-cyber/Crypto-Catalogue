@@ -5,7 +5,7 @@ import ru.netology.cryptocatalogue.dto.CryptoCoin
 import ru.netology.cryptocatalogue.dto.CryptoCoinDetail
 
 class CryptoRepositoryImpl(private val api: CryptoApi): CryptoRepository {
-    override suspend fun getCoinsList(): List<CryptoCoin> = api.getCoinsList()
+    override suspend fun getCoinsList(): List<CryptoCoin> = api.getCoinsList().data
 
     override suspend fun getCoinDetail(id: String): CryptoCoinDetail =
         api.getCoinDetail(id)

@@ -8,7 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import ru.netology.cryptocatalogue.activity.CryptoList
-import ru.netology.cryptocatalogue.dto.CryptoCoin
+import ru.netology.cryptocatalogue.api.ApiClient
+import ru.netology.cryptocatalogue.repository.CryptoRepositoryImpl
+import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 
 @Composable
 fun NavGraph() {
@@ -19,12 +21,10 @@ fun NavGraph() {
             startDestination = "CryptoList",
             modifier = Modifier.padding(innerPadding))
         {
+            val repository = CryptoRepositoryImpl(ApiClient.service)
+            val viewModel = CryptoViewModel(repository)
             composable("CryptoList") {
-                CryptoList(listOf(
-                    CryptoCoin(symbol = "BTC", name = "Bitcoin", price_usd = "70000.00", percent_change_24h = "+0.24"),
-                    CryptoCoin(symbol = "ETH", name = "Ethereum", price_usd = "3500.00", percent_change_24h = "-1.15"),
-                    CryptoCoin(symbol = "SOL", name = "Solana", price_usd = "150.00", percent_change_24h = "+5.40")
-                )) { }
+                CryptoList(viewModel = viewModel) { }
             }
         }
     }
