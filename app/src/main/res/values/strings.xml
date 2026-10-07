@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CryptoCatalogue</string>
+    <string name="failed_to_load_data">Failed to load data</string>
+    <string name="retry">Retry</string>
+    <string name="save_data_shown">Save data shown</string>
+    <string name="refresh">Refresh</string>
 </resources>

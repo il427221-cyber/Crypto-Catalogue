@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CryptoCatalogue</string>
+    <string name="failed_to_load_data">Не удалось загрузить данные</string>
+    <string name="retry">Повторить</string>
+    <string name="save_data_shown">Показаны сохраненные данные</string>
+    <string name="refresh">Обновить</string>
+</resources>

@@ -7,5 +7,6 @@ data class CoinListResponse(
 
 data class CryptoLoadingState(
     val loading: Boolean = false,
-    val error: Boolean = false
+    val error: Boolean = false,
+    val fromCache: Boolean = false
 )
