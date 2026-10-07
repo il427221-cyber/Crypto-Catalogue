@@ -4,6 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.cryptocatalogue.dto.CryptoCoin
 
+
+fun List<CoinEntity>.toDto(): List<CryptoCoin> = map(CoinEntity::toDto)
+fun List<CryptoCoin>.toEntity(): List<CoinEntity> = map(CoinEntity::fromDto)
+
 @Entity(tableName = "coinBase")
 data class CoinEntity (
     @PrimaryKey(autoGenerate = true)
@@ -31,11 +35,5 @@ data class CoinEntity (
             percent_change_24h = dto.percent_change_24h
         )
     }
-
-    fun List<CoinEntity>.toDto(): List<CryptoCoin> = map(CoinEntity::toDto)
-    fun List<CryptoCoin>.toEntity(): List<CoinEntity> = map(CoinEntity::fromDto)
-
-
-
 }
 

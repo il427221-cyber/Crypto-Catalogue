@@ -1,6 +1,6 @@
 package ru.netology.cryptocatalogue.error
 
-sealed class AppError (var code: String): RuntimeException()
-class ApiError(val status: Int, code: String): AppError(code)
-class NetworkError: AppError("error_network")
-class UnknownError: AppError("unknown_error")
+sealed class AppError (var code: String)
+class ApiError(code: String): AppError(code)
+object NetworkError: AppError("error_network")
+object UnknownError: AppError("unknown_error")
