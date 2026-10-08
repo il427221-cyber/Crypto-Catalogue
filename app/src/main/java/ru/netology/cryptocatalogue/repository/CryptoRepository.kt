@@ -7,6 +7,5 @@ import ru.netology.cryptocatalogue.dto.ResultState
 interface CryptoRepository {
     suspend fun getCoinsList(): ResultState<List<CryptoCoin>>
 
-            //List<CryptoCoin>
-    suspend fun getCoinDetail(id: String): CryptoCoinDetail
+//    suspend fun getCoinDetail(id: String): CryptoCoinDetail
 }

@@ -27,8 +27,8 @@ class CryptoRepositoryImpl(
             }
         }
     }
-    override suspend fun getCoinDetail(id: String): CryptoCoinDetail =
-        api.getCoinDetail(id)
-            .firstOrNull()
-            ?: throw IllegalStateException("Монета с id $id не найдена")
+//    override suspend fun getCoinDetail(id: String): CryptoCoinDetail =
+//        api.getCoinDetail(id)
+//            .firstOrNull()
+//            ?: throw IllegalStateException("Монета с id $id не найдена")
 }
