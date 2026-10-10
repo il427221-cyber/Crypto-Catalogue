@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.netology.cryptocatalogue.dto.CryptoCoin
+import ru.netology.cryptocatalogue.dto.CryptoCoinDetail
 import ru.netology.cryptocatalogue.dto.CryptoLoadingState
 import ru.netology.cryptocatalogue.dto.ResultState
 import ru.netology.cryptocatalogue.repository.CryptoRepository
@@ -17,6 +18,9 @@ private val _state = MutableStateFlow(CryptoLoadingState())
     private val _coins = MutableStateFlow<List<CryptoCoin>>(emptyList())
     val coins: StateFlow<List<CryptoCoin>> = _coins
 
+    private val _coinDetail = MutableStateFlow<CryptoCoinDetail?>(null)
+    val coinDetail: StateFlow<CryptoCoinDetail?> = _coinDetail
+
 init {
     loadCoinsList()
 }
@@ -24,7 +28,7 @@ init {
         viewModelScope.launch {
             _state.value = CryptoLoadingState(loading = true)
 
-        when(val result = repository.getCoinsList()) {
+            when(val result = repository.getCoinsList()) {
             is ResultState.Success -> {
                 _coins.value = result.data
                 _state.value = CryptoLoadingState(fromCache = result.fromCache)
@@ -33,6 +37,23 @@ init {
                 _state.value = CryptoLoadingState(error = true)
             }
         }
+        }
+    }
+
+    fun loadCoinDetail(id: String) {
+        viewModelScope.launch {
+            _state.value = CryptoLoadingState(loading = true)
+
+            when(val result = repository.getCoinDetail(id)) {
+                is ResultState.Success -> {
+                    _coinDetail.value = result.data
+                    _state.value = CryptoLoadingState(fromCache = result.fromCache)
+                }
+                ResultState.Failure -> {
+                    _state.value = CryptoLoadingState(error = true)
+                    _coinDetail.value = null
+                }
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.netology.cryptocatalogue.dto.CoinListResponse
+import ru.netology.cryptocatalogue.dto.CoinResponse
 import java.util.concurrent.TimeUnit
 
 
@@ -37,7 +38,7 @@ interface CryptoApi {
 
 
     @GET("ticker/")
-    suspend fun getCoinDetail(@Query("id") id:String): CoinListResponse
+    suspend fun getCoinDetail(@Query("id") id:String): CoinResponse
 }
 
 object ApiClient{

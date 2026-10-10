@@ -5,6 +5,10 @@ data class CoinListResponse(
     val data: List<CryptoCoin> = emptyList()
 )
 
+data class CoinResponse(
+    val data: CryptoCoinDetail?
+)
+
 data class CryptoLoadingState(
     val loading: Boolean = false,
     val error: Boolean = false,

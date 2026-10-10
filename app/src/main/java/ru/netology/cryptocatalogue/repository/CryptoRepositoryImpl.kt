@@ -5,6 +5,7 @@ import ru.netology.cryptocatalogue.dao.CoinDao
 import ru.netology.cryptocatalogue.dto.CryptoCoin
 import ru.netology.cryptocatalogue.dto.CryptoCoinDetail
 import ru.netology.cryptocatalogue.dto.ResultState
+import ru.netology.cryptocatalogue.entity.CoinDetailEntity
 import ru.netology.cryptocatalogue.entity.toDto
 import ru.netology.cryptocatalogue.entity.toEntity
 
@@ -16,7 +17,7 @@ class CryptoRepositoryImpl(
     override suspend fun getCoinsList(): ResultState<List<CryptoCoin>> {
         return try {
             val freshCoins = api.getCoinsList().data
-            dao.insert(freshCoins.toEntity())
+            dao.insertList(freshCoins.toEntity())
             ResultState.Success(freshCoins)
         } catch (_: Exception) {
             val cachedCoins = dao.getCoinsOnce().toDto()
@@ -27,8 +28,21 @@ class CryptoRepositoryImpl(
             }
         }
     }
-//    override suspend fun getCoinDetail(id: String): CryptoCoinDetail =
-//        api.getCoinDetail(id)
-//            .firstOrNull()
-//            ?: throw IllegalStateException("Монета с id $id не найдена")
+
+    override suspend fun getCoinDetail(id: String): ResultState<CryptoCoinDetail> {
+       return try {
+           val response = api.getCoinDetail(id)
+           val coin = response.data ?: return ResultState.Failure
+           val entity = CoinDetailEntity.fromDto(coin)
+           dao.insert(entity)
+           ResultState.Success(coin, fromCache = false)
+       } catch (_: Exception) {
+           val cachedCoin = dao.getCoinDetailById(id)
+           if (cachedCoin != null) {
+               ResultState.Success(cachedCoin.toDto(), fromCache = true)
+           } else {
+               ResultState.Failure
+           }
+       }
+       }
 }
