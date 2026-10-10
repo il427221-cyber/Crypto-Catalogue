@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import ru.netology.cryptocatalogue.entity.CoinDetailEntity
 import ru.netology.cryptocatalogue.entity.CoinEntity
 
 @Dao
@@ -13,5 +14,11 @@ interface CoinDao {
     suspend fun getCoinsOnce(): List<CoinEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(coins: List<CoinEntity>)
+    suspend fun insertList(coins: List<CoinEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(coin: CoinDetailEntity)
+
+    @Query("SELECT * FROM coinDetails WHERE id = :id")
+    suspend fun getCoinDetailById(id: String): CoinDetailEntity?
 }

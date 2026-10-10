@@ -10,8 +10,8 @@ fun List<CryptoCoin>.toEntity(): List<CoinEntity> = map(CoinEntity::fromDto)
 
 @Entity(tableName = "coinBase")
 data class CoinEntity (
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey
+    val id: String,
     val symbol: String,
     val name: String,
     val price_usd: String?,
@@ -19,7 +19,7 @@ data class CoinEntity (
 ) {
 
     fun toDto() = CryptoCoin(
-        id = id.toString(),
+        id = id,
         symbol = symbol,
         name = name,
         price_usd = price_usd,
@@ -28,7 +28,7 @@ data class CoinEntity (
 
     companion object {
         fun fromDto(dto: CryptoCoin) = CoinEntity(
-            id = dto.id.toInt(),
+            id = dto.id,
             symbol = dto.symbol,
             name = dto.name,
             price_usd = dto.price_usd,
