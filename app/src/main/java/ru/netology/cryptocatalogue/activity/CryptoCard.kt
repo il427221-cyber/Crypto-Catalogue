@@ -14,11 +14,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import ru.netology.cryptocatalogue.dto.CryptoCoin
 
 @Composable
-fun CryptoCardSmall(coin: CryptoCoin) {
+fun CryptoCardSmall(coin: CryptoCoin, navController: NavController) {
     Card(
+        onClick = {navController.navigate("CardDetail/${coin.id}")},
         modifier = Modifier.fillMaxWidth()
     ) {
             Column(
@@ -52,15 +54,4 @@ fun CryptoCardSmall(coin: CryptoCoin) {
                 }
             }
     }
-}
-
-@Preview
-@Composable
-fun CryptoCardPreview (){
-    CryptoCardSmall(coin = CryptoCoin(
-        symbol = "BTC",
-        name = "Bitcoin",
-        price_usd = "70.00",
-        percent_change_24h = "+0,24"
-    ))
 }

@@ -43,14 +43,15 @@ init {
     fun loadCoinDetail(id: String) {
         viewModelScope.launch {
             _state.value = CryptoLoadingState(loading = true)
+            _coinDetail.value = null
 
             when(val result = repository.getCoinDetail(id)) {
                 is ResultState.Success -> {
                     _coinDetail.value = result.data
-                    _state.value = CryptoLoadingState(fromCache = result.fromCache)
+                    _state.value = CryptoLoadingState(loading = false,fromCache = result.fromCache)
                 }
                 ResultState.Failure -> {
-                    _state.value = CryptoLoadingState(error = true)
+                    _state.value = CryptoLoadingState(loading = false,error = true)
                     _coinDetail.value = null
                 }
             }
