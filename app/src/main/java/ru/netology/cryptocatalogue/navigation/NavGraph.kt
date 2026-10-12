@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import ru.netology.cryptocatalogue.activity.CardDetail
 import ru.netology.cryptocatalogue.activity.CryptoList
 import ru.netology.cryptocatalogue.api.ApiClient
 import ru.netology.cryptocatalogue.db.AppDb
@@ -28,7 +29,6 @@ fun NavGraph() {
     Scaffold(
         snackbarHost = { SnackbarHost(snackBarState) }
     ) {innerPadding ->
-
         NavHost(
             navController = navController,
             startDestination = "CryptoList",
@@ -39,8 +39,18 @@ fun NavGraph() {
             composable("CryptoList") {
                 CryptoList(
                     viewModel = viewModel,
-                    snackBarHostState = snackBarState
-                    ) { }
+                    snackBarHostState = snackBarState,
+                    navController = navController
+                    )
+            }
+
+            composable("CardDetail/{coinId}") {backStackEntry ->
+                val coinId = backStackEntry.arguments?.getString("coinId") ?: ""
+                CardDetail(
+                    coinId = coinId,
+                    snackBarHostState = snackBarState,
+                    viewModel = viewModel
+                )
             }
         }
     }

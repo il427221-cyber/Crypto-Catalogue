@@ -1,6 +1,5 @@
 package ru.netology.cryptocatalogue.activity
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,8 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ru.netology.cryptocatalogue.R
-import ru.netology.cryptocatalogue.dto.CryptoCoin
 import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 
 
@@ -29,7 +28,7 @@ import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 fun CryptoList(
     viewModel: CryptoViewModel,
     snackBarHostState: SnackbarHostState,
-    onCoinClick: (CryptoCoin) -> Unit) {
+    navController: NavController) {
 
     val state by viewModel.state.collectAsState()
     val coins by viewModel.coins.collectAsState()
@@ -76,7 +75,7 @@ fun CryptoList(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(coins) {coin ->
-                        CryptoCardSmall(coin = coin)
+                        CryptoCardSmall(coin = coin, navController = navController)
                     }
                 }
             }
