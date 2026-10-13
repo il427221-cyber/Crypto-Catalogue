@@ -5,4 +5,15 @@
     <string name="retry">Повторить</string>
     <string name="save_data_shown">Показаны сохраненные данные</string>
     <string name="refresh">Обновить</string>
+    <string name="_24h">(24ч)</string>
+    <string name="settings">Настройки</string>
+    <string name="back">Назад</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="switch_between_light_and_dark_themes">Переключение между светлым и\n темным оформлением</string>
+    <string name="price">Цена:</string>
+    <string name="volume_24h">Объем 24ч</string>
+    <string name="change_dynamics">Динамика изменения (%):</string>
+    <string name="__24h">24ч</string>
+    <string name="_1h">1ч</string>
+    <string name="_7d">7дн</string>
 </resources>

@@ -32,7 +32,6 @@ class CryptoRepositoryImpl(
     override suspend fun getCoinDetail(id: String): ResultState<CryptoCoinDetail> {
        return try {
            val response = api.getCoinDetail(id)
-           //val coin = response.data ?: return ResultState.Failure
            val coin = response.firstOrNull() ?: return ResultState.Failure
            val entity = CoinDetailEntity.fromDto(coin)
            dao.insert(entity)

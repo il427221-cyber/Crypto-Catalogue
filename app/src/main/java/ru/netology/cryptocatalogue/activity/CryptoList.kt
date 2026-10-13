@@ -5,12 +5,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -24,6 +33,7 @@ import ru.netology.cryptocatalogue.R
 import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CryptoList(
     viewModel: CryptoViewModel,
@@ -48,6 +58,7 @@ fun CryptoList(
                 )
                 if (result == SnackbarResult.ActionPerformed) viewModel.loadCoinsList()
             }
+
             state.fromCache -> {
                 val result = snackBarHostState.showSnackbar(
                     message = saveMessage,
@@ -59,23 +70,43 @@ fun CryptoList(
         }
     }
 
-    when {
-        state.loading && coins.isEmpty()-> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
+    Scaffold(topBar = {
+        TopAppBar(
+            title = { Text(stringResource(R.string.crypto_catalogue)) },
+            actions = {
+                IconButton(onClick = { navController.navigate("Settings") }) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = stringResource(R.string.settings)
+                    )
+                }
             }
-        }
-        coins.isNotEmpty() -> {
-            Column {
-                LazyColumn(
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(coins) {coin ->
-                        CryptoCardSmall(coin = coin, navController = navController)
+        )
+    }
+    ) { paddingValues ->
+
+        Box(modifier = Modifier.padding(paddingValues)) {
+
+            when {
+                state.loading && coins.isEmpty() -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                coins.isNotEmpty() -> {
+                    Column {
+                        LazyColumn(
+                            contentPadding = PaddingValues(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            items(coins) { coin ->
+                                CryptoCardSmall(coin = coin, navController = navController)
+                            }
+                        }
                     }
                 }
             }
