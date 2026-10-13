@@ -10,11 +10,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import ru.netology.cryptocatalogue.R
 import ru.netology.cryptocatalogue.dto.CryptoCoin
 
 @Composable
@@ -37,13 +38,13 @@ fun CryptoCardSmall(coin: CryptoCoin, navController: NavController) {
                     Spacer(modifier = Modifier.padding(20.dp))
                     Text("${coin.percent_change_24h}")
                     Spacer(modifier = Modifier.padding(4.dp))
-                    Text("%")
+                    Text(stringResource(R.string.percent))
                     Spacer(modifier = Modifier.padding(4.dp))
-                    Text("(24h)")
+                    Text(stringResource(R.string._24h))
                     Spacer(modifier = Modifier.weight(1f))
                     Text("${coin.price_usd}")
                     Spacer(modifier = Modifier.padding(4.dp))
-                    Text("USD")
+                    Text(stringResource(R.string.usd))
                 }
 
                 Row(

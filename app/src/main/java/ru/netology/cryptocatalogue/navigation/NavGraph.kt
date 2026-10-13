@@ -13,13 +13,17 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import ru.netology.cryptocatalogue.activity.CardDetail
 import ru.netology.cryptocatalogue.activity.CryptoList
+import ru.netology.cryptocatalogue.activity.SettingsScreen
 import ru.netology.cryptocatalogue.api.ApiClient
 import ru.netology.cryptocatalogue.db.AppDb
 import ru.netology.cryptocatalogue.repository.CryptoRepositoryImpl
 import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 
 @Composable
-fun NavGraph() {
+fun NavGraph(
+    isDarkTheme: Boolean,
+    onThemeChanged: (Boolean) -> Unit
+) {
     val navController = rememberNavController()
     val snackBarState = remember { SnackbarHostState() }
 
@@ -50,6 +54,14 @@ fun NavGraph() {
                     coinId = coinId,
                     snackBarHostState = snackBarState,
                     viewModel = viewModel
+                )
+            }
+
+            composable("Settings") {
+                SettingsScreen(
+                    isDarkTheme = isDarkTheme,
+                    onThemeChanged = onThemeChanged,
+                    onBackClick = { navController.popBackStack() }
                 )
             }
         }

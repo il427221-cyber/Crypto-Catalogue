@@ -102,7 +102,8 @@ fun CardDetail(
             ) {
 
                 Box(
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier
+                        .padding(16.dp)
                         .size(60.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.inversePrimary),
@@ -111,7 +112,7 @@ fun CardDetail(
                 ) {
 
                     Text(
-                        "#" + "${coin.rank}",
+                        stringResource(R.string.grid) + "${coin.rank}",
                         modifier = Modifier.padding(16.dp), fontSize = 20.sp
                     )
 
@@ -135,7 +136,7 @@ fun CardDetail(
                         modifier = Modifier.fillMaxWidth()
                     ) {
 
-                        Text("Price:", fontSize = 20.sp)
+                        Text(stringResource(R.string.price), fontSize = 20.sp)
                         Spacer(modifier = Modifier.padding(4.dp))
                         Text(
                             "${coin.price_usd}",
@@ -143,7 +144,7 @@ fun CardDetail(
                             fontSize = 20.sp
                         )
                         Spacer(modifier = Modifier.padding(4.dp))
-                        Text("USD", fontSize = 20.sp)
+                        Text(stringResource(R.string.usd), fontSize = 20.sp)
                     }
                     Spacer(modifier = Modifier.padding(12.dp))
 
@@ -151,7 +152,7 @@ fun CardDetail(
                         horizontalArrangement = Arrangement.Center,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Volume 24h", fontSize = 20.sp)
+                        Text(stringResource(R.string.volume_24h), fontSize = 20.sp)
                         Spacer(modifier = Modifier.padding(4.dp))
                         Text(
                             "${coin.volume24}",
@@ -164,7 +165,7 @@ fun CardDetail(
                     Spacer(modifier = Modifier.padding(20.dp))
                     HorizontalDivider(thickness = 4.dp)
                     Spacer(modifier = Modifier.padding(20.dp))
-                    Text("Change Dynamics (%):", fontSize = 25.sp)
+                    Text(stringResource(R.string.change_dynamics), fontSize = 25.sp)
                     Spacer(modifier = Modifier.padding(20.dp))
 
                     Row(
@@ -180,7 +181,7 @@ fun CardDetail(
                                 verticalArrangement = Arrangement.Center
                             ) {
 
-                                Text("24h", fontSize = 20.sp)
+                                Text(stringResource(R.string.__24h), fontSize = 20.sp)
                                 Spacer(modifier = Modifier.padding(12.dp))
                                 PercentChangeBadge(coin.percent_change_24h)
                             }
@@ -193,7 +194,7 @@ fun CardDetail(
                                 verticalArrangement = Arrangement.Center
                             ) {
 
-                                Text("1h", fontSize = 20.sp)
+                                Text(stringResource(R.string._1h), fontSize = 20.sp)
                                 Spacer(modifier = Modifier.padding(12.dp))
                                 PercentChangeBadge(coin.percent_change_1h)
                             }
@@ -206,7 +207,7 @@ fun CardDetail(
                                 verticalArrangement = Arrangement.Center
                             ) {
 
-                                Text("7d", fontSize = 20.sp)
+                                Text(stringResource(R.string._7d), fontSize = 20.sp)
                                 Spacer(modifier = Modifier.padding(12.dp))
                                 PercentChangeBadge(coin.percent_change_7d)
                             }
