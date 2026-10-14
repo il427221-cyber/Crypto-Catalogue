@@ -61,7 +61,8 @@ fun NavGraph(
                 SettingsScreen(
                     isDarkTheme = isDarkTheme,
                     onThemeChanged = onThemeChanged,
-                    onBackClick = { navController.popBackStack() }
+                    onBackClick = { navController.popBackStack() },
+                    viewModel = viewModel
                 )
             }
         }

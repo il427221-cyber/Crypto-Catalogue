@@ -21,9 +21,43 @@ private val _state = MutableStateFlow(CryptoLoadingState())
     private val _coinDetail = MutableStateFlow<CryptoCoinDetail?>(null)
     val coinDetail: StateFlow<CryptoCoinDetail?> = _coinDetail
 
+    // Поток ID выбранных монет для галочек
+    private val _selectedCoinIds = MutableStateFlow<Set<String>>(emptySet())
+    val selectedCoinIds: StateFlow<Set<String>> = _selectedCoinIds
+
+    // Поток, который непосредственно читает экран списка
+    private val _filteredCoins = MutableStateFlow<List<CryptoCoin>>(emptyList())
+    val filteredCoins: StateFlow<List<CryptoCoin>> = _filteredCoins
+
 init {
     loadCoinsList()
 }
+    fun filterCoins() {
+        val selectedIds = _selectedCoinIds.value
+        val originalCoins = _coins.value
+
+        if(selectedIds.isEmpty()) {
+            _filteredCoins.value = originalCoins
+        } else {
+            _filteredCoins.value = originalCoins.filter { coin -> selectedIds.contains(coin.id) }
+        }
+    }
+
+    fun toggleCoinSelection(coinId: String) {
+        val currentSet = _selectedCoinIds.value
+        if(currentSet.contains(coinId)) {
+            _selectedCoinIds.value = currentSet - coinId
+        } else {
+            _selectedCoinIds.value = currentSet + coinId
+        }
+        filterCoins()
+    }
+
+    fun clearAllFilters() {
+        _selectedCoinIds.value = emptySet()
+        filterCoins()
+    }
+
     fun loadCoinsList() {
         viewModelScope.launch {
             _state.value = CryptoLoadingState(loading = true)
@@ -31,6 +65,7 @@ init {
             when(val result = repository.getCoinsList()) {
             is ResultState.Success -> {
                 _coins.value = result.data
+                filterCoins()
                 _state.value = CryptoLoadingState(fromCache = result.fromCache)
             }
             ResultState.Failure -> {

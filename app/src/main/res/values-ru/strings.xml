@@ -6,6 +6,7 @@
     <string name="save_data_shown">Показаны сохраненные данные</string>
     <string name="refresh">Обновить</string>
     <string name="_24h">(24ч)</string>
+    <string name="crypto_catalogue">Каталог криптовалют</string>
     <string name="settings">Настройки</string>
     <string name="back">Назад</string>
     <string name="dark_theme">Темная тема</string>
@@ -16,4 +17,9 @@
     <string name="__24h">24ч</string>
     <string name="_1h">1ч</string>
     <string name="_7d">7дн</string>
+    <string name="select_coins">Выберите монеты...</string>
+    <string name="list_filter">Фильтр списка</string>
+    <string name="all_coins_are_shown">Показываются все монеты</string>
+    <string name="clear">Сбросить</string>
+    <string name="coins_selected">Выбрано монет: %1$d</string>
 </resources>
