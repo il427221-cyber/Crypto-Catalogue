@@ -41,7 +41,7 @@ fun CryptoList(
     navController: NavController) {
 
     val state by viewModel.state.collectAsState()
-    val coins by viewModel.coins.collectAsState()
+    val coins by viewModel.filteredCoins.collectAsState()
 
     val errorMessage = stringResource(R.string.failed_to_load_data)
     val retryMessage = stringResource(R.string.retry)
