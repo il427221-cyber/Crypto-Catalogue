@@ -8,9 +8,10 @@ import ru.netology.cryptocatalogue.dto.ResultState
 import ru.netology.cryptocatalogue.entity.CoinDetailEntity
 import ru.netology.cryptocatalogue.entity.toDto
 import ru.netology.cryptocatalogue.entity.toEntity
+import javax.inject.Inject
 
 
-class CryptoRepositoryImpl(
+class CryptoRepositoryImpl @Inject constructor(
     private val api: CryptoApi,
     private val dao: CoinDao): CryptoRepository {
 

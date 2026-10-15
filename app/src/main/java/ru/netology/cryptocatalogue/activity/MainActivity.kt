@@ -1,4 +1,4 @@
-package ru.netology.cryptocatalogue
+package ru.netology.cryptocatalogue.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -6,15 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import ru.netology.cryptocatalogue.navigation.NavGraph
 import ru.netology.cryptocatalogue.ui.theme.CryptoCatalogueTheme
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import ru.netology.cryptocatalogue.activity.ThemeSettings
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

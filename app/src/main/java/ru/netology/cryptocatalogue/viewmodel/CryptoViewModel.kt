@@ -2,6 +2,7 @@ package ru.netology.cryptocatalogue.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -10,8 +11,12 @@ import ru.netology.cryptocatalogue.dto.CryptoCoinDetail
 import ru.netology.cryptocatalogue.dto.CryptoLoadingState
 import ru.netology.cryptocatalogue.dto.ResultState
 import ru.netology.cryptocatalogue.repository.CryptoRepository
+import javax.inject.Inject
 
-class CryptoViewModel(private val repository: CryptoRepository): ViewModel() {
+@HiltViewModel
+class CryptoViewModel @Inject constructor(
+    private val repository: CryptoRepository)
+    : ViewModel() {
 private val _state = MutableStateFlow(CryptoLoadingState())
     val state: StateFlow<CryptoLoadingState> = _state
 
