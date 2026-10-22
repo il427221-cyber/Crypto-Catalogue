@@ -48,6 +48,8 @@ fun CardDetail(
     val saveMessage = stringResource(R.string.save_data_shown)
     val refreshMessage = stringResource(R.string.refresh)
 
+    val formatNumber = FormatNumbers()
+
 
     LaunchedEffect(coinId) {
         if (coinId.isNotEmpty()) {
@@ -154,8 +156,7 @@ fun CardDetail(
                     ) {
                         Text(stringResource(R.string.volume_24h), fontSize = 20.sp)
                         Spacer(modifier = Modifier.padding(4.dp))
-                        Text(
-                            "${coin.volume24}",
+                        Text(text = formatNumber.bigNumbersFormat(coin.volume24?: 0.0),
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )
