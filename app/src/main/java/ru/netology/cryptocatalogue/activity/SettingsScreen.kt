@@ -21,6 +21,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,7 +47,9 @@ import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 @Composable
 fun SettingsScreen(
     isDarkTheme: Boolean,
+    currentLanguage: String,
     onThemeChanged: (Boolean) -> Unit,
+    onLanguageChanged: (String) -> Unit,
     onBackClick: () -> Unit,
     viewModel: CryptoViewModel
     ) {
@@ -56,6 +61,7 @@ fun SettingsScreen(
     var isMenuExpanded by remember { mutableStateOf(false) }
 
     Scaffold(
+        //1. Top bar
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.settings)) },
@@ -84,6 +90,7 @@ fun SettingsScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                //2. Блок с выбором темы
                 Column {
                     Text(
                         text = stringResource(R.string.dark_theme),
@@ -96,13 +103,64 @@ fun SettingsScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-
                 Switch(checked = isDarkTheme, onCheckedChange = { onThemeChanged(it) })
             }
             Spacer(modifier = Modifier.padding(12.dp))
             HorizontalDivider(thickness = 1.dp)
             Spacer(modifier = Modifier.padding(12.dp))
 
+            //3. Блок с выбором языка
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.language),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Text(
+                    text = stringResource(R.string.select_app_language),
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+
+                Spacer(modifier = Modifier.padding(6.dp))
+
+                // Описываем 3 опции
+                val options = remember {
+                    listOf(
+                        "system" to R.string.lang_system,
+                        "ru" to R.string.lang_russian,
+                        "en" to R.string.lang_english
+                    )
+                }
+                // Находим индекс текущего выбранного языка для UI
+                val selectedIndex = options.indexOfFirst { it.first == currentLanguage }.coerceAtLeast(0)
+
+                // Тройной горизонтальный переключатель
+                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth())
+                {
+                    options.forEachIndexed { index, (code,stringResId) ->
+                        SegmentedButton(
+                            selected = index == selectedIndex,
+                            onClick = {onLanguageChanged(code)},
+                            shape = SegmentedButtonDefaults.itemShape(index = index, count = options.size),
+                            // Появление галочки при выборе языка
+                            icon = { SegmentedButtonDefaults.Icon(active = index == selectedIndex) }
+                        ) {
+                                Text(
+                                    text = stringResource(id = stringResId),
+                                    fontSize = 14.sp
+                                )
+                        }
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.padding(12.dp))
+            HorizontalDivider(thickness = 1.dp)
+            Spacer(modifier = Modifier.padding(12.dp))
+
+            //4. Блок с фильтром монет
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
