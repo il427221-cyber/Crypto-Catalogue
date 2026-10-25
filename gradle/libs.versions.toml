@@ -1,5 +1,6 @@
 [versions]
 agp = "9.4.1"
+appcompat = "1.8.0"
 converterGson = "3.0.0"
 coreKtx = "1.19.1"
 datastorePreferences = "1.2.1"
@@ -24,6 +25,7 @@ lifecycleViewmodelCompose = "2.11.0"
 ui = "1.12.1"
 
 [libraries]
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }

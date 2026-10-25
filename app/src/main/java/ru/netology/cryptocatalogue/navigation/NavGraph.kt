@@ -19,7 +19,9 @@ import ru.netology.cryptocatalogue.viewmodel.CryptoViewModel
 @Composable
 fun NavGraph(
     isDarkTheme: Boolean,
-    onThemeChanged: (Boolean) -> Unit
+    currentLanguage: String,
+    onThemeChanged: (Boolean) -> Unit,
+    onLanguageChanged: (String) -> Unit
 ) {
     val navController = rememberNavController()
     val snackBarState = remember { SnackbarHostState() }
@@ -55,7 +57,9 @@ fun NavGraph(
             composable("Settings") {
                 SettingsScreen(
                     isDarkTheme = isDarkTheme,
+                    currentLanguage = currentLanguage,
                     onThemeChanged = onThemeChanged,
+                    onLanguageChanged = onLanguageChanged,
                     onBackClick = { navController.popBackStack() },
                     viewModel = viewModel
                 )
